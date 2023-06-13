@@ -1,7 +1,4 @@
-from ast import main
-import os
 import sys
-import subprocess
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, \
     QFileDialog, QTextEdit
 from PyQt5.QtCore import pyqtSignal, Qt
@@ -11,34 +8,58 @@ from colorama import init
 class JupyterManager(QWidget):
     def __init__(self):
         super().__init__()
+
         # Input Fields
         self.env_label = QLabel('Environment Name')
+        self.env_label.setStyleSheet("font-weight: bold")
         self.env_input = QLineEdit()
-        self.pkg_label = QLabel('Addtional Packages')
-        self.pkg_input = QLineEdit()
-        self.port_label = QLabel('Port Number')
-        self.port_input = QLineEdit()
-        self.conda_label = QLabel('Conda Path')
-        self.conda_input = QLineEdit()
+        self.env_input.setStyleSheet(
+            "background-color: #9D73FA; font-weight: bold;")
 
-        # self.init_ui()
+        self.pkg_label = QLabel('Additional Packages')
+        self.pkg_label.setStyleSheet("font-weight: bold")
+        self.pkg_input = QLineEdit()
+        self.pkg_input.setStyleSheet(
+            "background-color: #9D73FA; font-weight: bold;")
+
+        self.port_label = QLabel('Port Number')
+        self.port_label.setStyleSheet("font-weight: bold")
+        self.port_input = QLineEdit()
+        self.port_input.setStyleSheet(
+            "background-color: #9D73FA; font-weight: bold;")
+
+        self.conda_label = QLabel('Conda Path')
+        self.conda_label.setStyleSheet("font-weight: bold")
+        self.conda_input = QLineEdit()
+        self.conda_input.setStyleSheet(
+            "background-color: #9D73FA; font-weight: bold;")
+
+        self.init_ui()
 
     def init_ui(self):
         # Browse button for conda executable
         self.browse_button = QPushButton('Browse')
-        self.browse_button.clicked.connect(self.browse_for_conda())
+        self.browse_button.setStyleSheet(
+            "background-color: #9D73FA; font-weight: bold;")
+        self.browse_button.clicked.connect(self.browse_for_conda)
 
         # Create and launch button
         self.create_button = QPushButton('Create and Launch')
+        self.create_button.setStyleSheet(
+            "background-color: #9D73FA; font-weight: bold;")
         self.create_button.clicked.connect(
-            self.create_env_and_launch_jupyter())
+            self.create_env_and_launch_jupyter)
 
         # Kill button
         self.kill_button = QPushButton('Kill Jupyter Server')
-        self.kill_button.clicked.connect(self.kill_jupyter_server())
+        self.kill_button.setStyleSheet(
+            "background-color: #9D73FA; font-weight: bold;")
+        self.kill_button.clicked.connect(self.kill_jupyter_server)
 
         # Text output field
         self.text_output = QTextEdit()
+        self.text_output.setStyleSheet(
+            "background-color: #F060C3; font-weight: bold;")
 
         # Add labels and input fields to layout
         form_layout = QVBoxLayout()
@@ -73,7 +94,7 @@ class JupyterManager(QWidget):
         # Set main layout and window properties
         self.setLayout(main_layout)
         # set background color
-        self.setStyleSheet("background-color: #0bf82a;")
+        self.setStyleSheet("background-color: #332EF0;")
         self.setWindowTitle('Jupyter Manager')
         self.setGeometry(300, 300, 500, 500)
         self.show()
@@ -84,6 +105,13 @@ class JupyterManager(QWidget):
     def kill_jupyter_server(self):
         pass
 
+    def browse_for_conda(self):
+        pass
 
-jupyter = JupyterManager()
-jupyter.init_ui()
+
+if __name__ == '__main__':
+    init()
+    app = QApplication(sys.argv)
+    jupyter = JupyterManager()
+    jupyter.show()
+    sys.exit(app.exec_())
